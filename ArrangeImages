@@ -1,21 +1,21 @@
-Sub ArrangeImages()
+Sub ArrangeImagesNeatlyInASingleColumn()
     Dim img As Picture
     Dim gap As Integer ' Set the gap between images
-    Dim minLeft As Double
-    Dim maxBottom As Double
+    Dim minLeft As Double ' Variable to store the minimum left edge of all images
+    Dim maxBottom As Double ' Variable to store the maximum bottom edge of the images
     
     gap = 30 ' Adjust this value according to your preference
     
     ' Find the minimum left edge among all images
-    minLeft = ActiveSheet.Pictures(1).Left
+    minLeft = ActiveSheet.Pictures(1).Left ' Assume the left edge of the first image as the minimum initially
     For Each img In ActiveSheet.Pictures
         If img.Left < minLeft Then
-            minLeft = img.Left
+            minLeft = img.Left ' Update minLeft if the left edge of the current image is less than minLeft
         End If
     Next img
     
     ' Set the initial top position to the top of cell B5
-    maxBottom = ActiveSheet.Range("B5").Top
+    maxBottom = ActiveSheet.Range("B5").Top ' Set the initial bottom edge to the top of cell B5
     
     ' Loop through each picture in the active sheet
     For Each img In ActiveSheet.Pictures
@@ -26,6 +26,6 @@ Sub ArrangeImages()
         img.Left = ActiveSheet.Range("B5").Left
         
         ' Update the maximum bottom edge
-        maxBottom = img.Top + img.Height + gap
+        maxBottom = img.Top + img.Height + gap ' Set the maximum bottom edge to the bottom of the current image plus the gap
     Next img
 End Sub
