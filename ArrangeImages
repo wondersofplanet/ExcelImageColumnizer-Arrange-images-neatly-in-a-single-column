@@ -1,0 +1,31 @@
+Sub ArrangeImages()
+    Dim img As Picture
+    Dim gap As Integer ' Set the gap between images
+    Dim minLeft As Double
+    Dim maxBottom As Double
+    
+    gap = 30 ' Adjust this value according to your preference
+    
+    ' Find the minimum left edge among all images
+    minLeft = ActiveSheet.Pictures(1).Left
+    For Each img In ActiveSheet.Pictures
+        If img.Left < minLeft Then
+            minLeft = img.Left
+        End If
+    Next img
+    
+    ' Set the initial top position to the top of cell B5
+    maxBottom = ActiveSheet.Range("B5").Top
+    
+    ' Loop through each picture in the active sheet
+    For Each img In ActiveSheet.Pictures
+        ' Set the top position of the picture
+        img.Top = maxBottom
+        
+        ' Set the left position of the picture to align with the left edge of cell B5
+        img.Left = ActiveSheet.Range("B5").Left
+        
+        ' Update the maximum bottom edge
+        maxBottom = img.Top + img.Height + gap
+    Next img
+End Sub
